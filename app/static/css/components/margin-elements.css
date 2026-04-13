@@ -1,0 +1,181 @@
+/* --- VARIABLES --- */
+:root {
+    /* Colors */
+    --margin-bg: hsla(0, 0%, 7%, 0.95);
+    --bg-transparent: hsla(0, 0%, 7%, 0.80);
+    --text-hover: hsl(240, 100%, 65%);
+    --text-light: hsl(60, 12%, 95%);
+    --shadow-color: hsla(0, 0%, 0%, 85%);
+
+    /* Spacing */
+    --container-margin: 0 auto;
+
+    /* Dimensions */
+    --nav-height: 3rem;
+}
+
+
+/* --- HEADER --- */
+.site-header {
+    position: sticky;
+    top: 0;
+    height: auto;
+    min-height: var(--nav-height);
+    background: var(--margin-bg);
+    z-index: 1000;
+    user-select: none;
+    box-shadow: 0px 3px 3px var(--shadow-color);
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--nav-height);
+    margin: var(--container-margin);
+}
+
+/* --- LOGO --- */
+.logo-link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+#site-logo {
+    max-height: 2.2rem;
+    transition: ease 0.2s;
+}
+
+#site-logo:hover {
+    transform: scale(1.1);
+}
+
+/* --- NAVIGATION --- */
+.header-nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.inline-menu {
+    display: flex;
+    gap: 1.5em;
+}
+
+.site-header a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.site-header a:hover {
+    color: var(--text-hover);
+}
+
+/* --- HAMBURGER LOGIC --- */
+.hamburger-toggle {
+    display: none;
+}
+
+.hamburger-menu {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    right: 0;
+    height: 10em;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    background: var(--bg-transparent);
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid hsla(0, 0%, 100%, 0.1);
+}
+
+.hamburger-toggle-label {
+    display: none;
+    cursor: pointer;
+
+    align-items: center;
+    justify-content: center;
+
+    height: var(--nav-height);
+    width: 3rem;
+    padding: 0;
+}
+
+/* --- HAMBURGER ELEMENT STYLING --- */
+#hamburger-icon {
+    height: 2.5rem;
+    width: auto;
+    filter: invert(1);
+
+    text-align: center;
+    line-height: 2.5rem;
+    transition: 0.2s ease;
+}
+
+.hamburger-menu a {
+    display: flex;
+    height: 25%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+/* --- MOBILE STYLES --- */
+@media (max-width: 800px) {
+    .inline-menu {
+        display: none;
+    }
+
+    .hamburger-toggle-label {
+        display: flex;
+    }
+
+    .hamburger-toggle:checked~.hamburger-menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #hamburger-icon:hover {
+        transform: scale(1.1);
+    }
+}
+
+
+/* --- FOOTER --- */
+.site-footer {
+    position: sticky;
+    bottom: 0;
+    height: var(--nav-height);
+    background: var(--margin-bg);
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+.site-footer .container {
+    justify-content: center;
+    margin: var(--container-margin);
+}
+
+/* --- TEXT STYLING --- */
+.site-footer p {
+    text-align: center;
+    margin: 0;
+}
+
+.site-footer a {
+    color: var(--text-light);
+    transition: 0.2s ease;
+}
+
+.site-footer a:hover {
+    color: var(--text-hover);
+}

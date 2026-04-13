@@ -1,0 +1,48 @@
+# --- SENSITIVE CONFIGURATION ---
+config/db.php
+.env
+.env.local
+.env.production
+
+# --- DEPENDENCIES ---
+vendor/
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# --- DATABASE ---
+*.db
+*.sqlite
+database/backups/
+database/temp_data.sql
+
+# --- ASSETS & COMPILED FILES ---
+.sass-cache/
+*.css.map
+*.js.map
+
+# --- OS & IDE SPECIFIC ---
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Code Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# --- LOGS & TEMPORARY ---
+logs/
+*.log
+tmp/
+temp/
