@@ -48,7 +48,7 @@ body {
 }
 
 .site-content.container {
-    display: flex;
+    display: block;
     flex: 1;
     min-height: calc(100vh - (var(--nav-height) * 2));
     padding: var(--site-content-padding);

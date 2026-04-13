@@ -15,6 +15,7 @@ yarn-error.log*
 *.sqlite
 database/backups/
 database/temp_data.sql
+instance
 
 # --- ASSETS & COMPILED FILES ---
 .sass-cache/
@@ -46,3 +47,4 @@ logs/
 *.log
 tmp/
 temp/
+__pycache__
