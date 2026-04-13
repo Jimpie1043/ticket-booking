@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" booking="width=device-width, initial-scale=1">
     <title>Project</title>
-    <meta name="description" content="A template for my other html projects">
+    <meta name="description" booking="A template for my other html projects">
     <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
 
     <link rel="stylesheet" href="../static/css/reset.css">
@@ -24,10 +24,11 @@
 
         <nav class="header-nav">
             <div class="inline-menu">
-                <a href="index.html">Home</a>
-                <a href="content.html">Content</a>
-                <a href="signup.html">Sign Up</a>
-                <a href="login.html">Login</a>
+                <a href="{{ url_for('event.index') }}">Home</a>
+                <!-- Lien temporaire -->
+                <a href="{{ url_for('event.index') }}">Booking</a>
+                <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+                <a href="{{ url_for('auth.login') }}">Login</a>
             </div>
 
             <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle">
@@ -36,10 +37,11 @@
             </label>
 
             <div class="hamburger-menu">
-                <a href="index.html">Home</a>
-                <a href="content.html">Content</a>
-                <a href="signup.html">Sign Up</a>
-                <a href="login.html">Login</a>
+                <a href="{{ url_for('event.index') }}">Home</a>
+                <!-- Lien temporaire -->
+                <a href="{{ url_for('event.index') }}">Booking</a>
+                <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+                <a href="{{ url_for('auth.login') }}">Login</a>
             </div>
         </nav>
     </div>
