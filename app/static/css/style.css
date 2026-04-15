@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fdfaf6;
+    color: #5a4b51;
+    line-height: 1.6;
+}
+
+/* Conteneur général */
+.container,
+.form-container,
+.dashboard-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Header */
+.site-header {
+    background-color: #d9c2ec;
+    padding: 20px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #5b3f6a;
+    text-decoration: none;
+}
+
+.team-names {
+    font-size: 0.9rem;
+    color: #6f5d75;
+    margin-top: 4px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #5b3f6a;
+    font-weight: 600;
+    background-color: #f6eefe;
+    padding: 10px 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover {
+    background-color: #eddcfb;
+}
+
+/* Main */
+.site-content {
+    padding: 40px 0;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #f8dff0, #dff4f3);
+    padding: 60px 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    color: #5b3f6a;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 0 auto 20px;
+    color: #6e5d63;
+}
+
+/* Boutons */
+.btn-primary,
+.btn-secondary {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #f4b6c2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #e89bab;
+}
+
+.btn-secondary {
+    background-color: #cde7f0;
+    color: #4c6170;
+}
+
+.btn-secondary:hover {
+    background-color: #b9dbe8;
+}
+
+/* Cartes d’événements */
+.events-section h2,
+.dashboard-table-section h2 {
+    margin-bottom: 20px;
+    color: #5b3f6a;
+}
+
+.events-grid,
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.event-card,
+.dashboard-card,
+.reservation-summary,
+.empty-state,
+.form-container {
+    background-color: #fff7fb;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.event-card h3,
+.dashboard-card h2,
+.reservation-summary h2 {
+    margin-bottom: 12px;
+    color: #6b4f7c;
+}
+
+.event-card p,
+.dashboard-card p,
+.reservation-summary p,
+.empty-state p {
+    margin-bottom: 10px;
+}
+
+/* Formulaires */
+.form-section,
+.reservation-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.form-container {
+    max-width: 500px;
+}
+
+.form-container h1 {
+    margin-bottom: 10px;
+    color: #5b3f6a;
+}
+
+.form-container p {
+    margin-bottom: 20px;
+    color: #6e5d63;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #5b3f6a;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid #e5d6e8;
+    border-radius: 12px;
+    outline: none;
+    background-color: #fff;
+}
+
+.form-group input:focus {
+    border-color: #d9c2ec;
+    box-shadow: 0 0 0 3px rgba(217, 194, 236, 0.3);
+}
+
+.form-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-link a {
+    color: #c97fa0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+/* Tableaux */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fffafc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #f0dfe7;
+}
+
+.dashboard-table th {
+    background-color: #efd9f7;
+    color: #5b3f6a;
+}
+
+.dashboard-table tr:hover {
+    background-color: #faf2f7;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #dff4f3;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: #5a4b51;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.site-footer p {
+    margin: 5px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-menu {
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .site-content {
+        padding: 25px 0;
+    }
+}

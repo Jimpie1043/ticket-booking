@@ -1,7 +1,38 @@
-{% include "components/header.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de réservation de billets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
 
-<main class="site-content container">
-    {% block content %}{% endblock %}
-</main>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo-block">
+                <a href="{{ url_for('event.index') }}" class="logo">Billetterie</a>
+                <p class="team-names">Myriam Boulet · François-Xavier Leclerc</p>
+            </div>
 
-{% include "components/footer.html" %}
+            <nav class="nav-menu">
+                <a href="{{ url_for('event.index') }}">Accueil</a>
+                <a href="{{ url_for('auth.login') }}">Connexion</a>
+                <a href="{{ url_for('auth.signup') }}">Inscription</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="site-content container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 - Système de réservation de billets</p>
+            <p>Projet réalisé par Myriam Boulet et François-Xavier Leclerc</p>
+        </div>
+    </footer>
+
+</body>
+</html>

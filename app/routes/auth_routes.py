@@ -32,17 +32,15 @@ def signup():
                 password=generate_password_hash(password),
                 role="user"
             )
-
             db.session.add(new_user)
             db.session.commit()
-
         except Exception:
             db.session.rollback()
             return "Server error while creating user", 500
 
         return redirect(url_for("auth.login"))
 
-    return render_template("signup.html")
+    return render_template("inscription.html")
 
 
 @auth.route("/login", methods=["GET", "POST"])
@@ -64,7 +62,7 @@ def login():
 
         return redirect(url_for("event.index"))
 
-    return render_template("login.html")
+    return render_template("connexion.html")
 
 
 @auth.route("/logout")
