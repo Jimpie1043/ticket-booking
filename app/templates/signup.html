@@ -2,18 +2,18 @@
 
 {% block content %}
 <section class="signup-section">
-    <form class="signup-form" action="includes/signup.inc.php" method="post">
+    <form class="signup-form" action="{{ url_for('auth.signup') }}" method="post">
         <h1>Create an account</h1>
 
         <div class="signup-credentials-container">
-            <input type="text" name="name" placeholder="Full Name*" maxlength="128" required>
-            <input type="text" name="email" placeholder="Email*" maxlength="128" required>
-            <input type="text" name="uid" placeholder="Username*" minlength="4" maxlength="128" required>
-            <input type="password" name="pwd" placeholder="Password*" minlength="16" maxlength="64" required>
-            <input type="password" name="pwd-repeat" placeholder="Repeat Password*" required>
-            <button type="submit" name="form-submit">Sign Up</button>
+            <input type="text" name="email" placeholder="Email*" required>
+
+            <input type="password" name="password" placeholder="Password*" minlength="8" required>
+
+            <input type="password" name="password_repeat" placeholder="Repeat Password*" minlength="8" required>
+
+            <button type="submit">Sign Up</button>
         </div>
     </form>
 </section>
-
 {% endblock %}
