@@ -18,17 +18,20 @@
 
 <header class="site-header">
     <div class="container">
-        <a href="index.html" class="logo-link">
+        <a href="{{ url_for('event.index') }}" class="logo-link">
             <img src="../static/img/icon.png" alt="Website logo" id="site-logo">
         </a>
 
         <nav class="header-nav">
             <div class="inline-menu">
-                <a href="{{ url_for('event.index') }}">Home</a>
-                <!-- Lien temporaire -->
-                <a href="{{ url_for('event.index') }}">Booking</a>
-                <a href="{{ url_for('auth.signup') }}">Sign Up</a>
-                <a href="{{ url_for('auth.login') }}">Login</a>
+                <a href="{{ url_for('event.index') }}">Events</a>
+
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                {% endif %}
             </div>
 
             <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle">
@@ -37,11 +40,14 @@
             </label>
 
             <div class="hamburger-menu">
-                <a href="{{ url_for('event.index') }}">Home</a>
-                <!-- Lien temporaire -->
-                <a href="{{ url_for('event.index') }}">Booking</a>
-                <a href="{{ url_for('auth.signup') }}">Sign Up</a>
-                <a href="{{ url_for('auth.login') }}">Login</a>
+                <a href="{{ url_for('event.index') }}">Events</a>
+
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                {% endif %}
             </div>
         </nav>
     </div>

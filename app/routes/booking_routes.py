@@ -15,16 +15,28 @@ def book(event_id):
     if current >= event_obj.capacity:
         return "Event full", 400
 
+    existing = Booking.query.filter_by(
+        event_id=event_id,
+        user_id=session["user_id"]
+    ).first()
+
+    if existing:
+        return "Already booked", 409
+
     new_booking = Booking(
         user_id=session["user_id"],
         event_id=event_id,
         status="confirmed"
     )
 
-    db.session.add(new_booking)
-    db.session.commit()
+    try:
+        db.session.add(new_booking)
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        return "Booking failed", 500
 
-    return redirect(url_for("event.index"))
+    return redirect(url_for("event.event_page", event_id=event_id))
 
 
 @booking.route("/cancel/<int:booking_id>")
@@ -36,6 +48,11 @@ def cancel_booking(booking_id):
         return "Forbidden", 403
 
     booking_obj.status = "cancelled"
-    db.session.commit()
 
-    return redirect(url_for("event.index"))
+    try:
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        return "Cancel failed", 500
+
+    return redirect(url_for("event.event_page", event_id=booking_obj.event_id))

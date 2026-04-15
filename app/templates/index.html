@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Events</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda consectetur a nam alias quos obcaecati totam error magni velit laudantium voluptatum eveniet ratione explicabo temporibus eius voluptas pariatur, quo qui?</p>
+<section class="events-section">
+    <h1>Events</h1>
+
+    <div class="events-grid">
+        {% for event in events %}
+            <a href="{{ url_for('event.event_page', event_id=event.id) }}" class="event-card">
+                <h2>{{ event.title }}</h2>
+                <p>{{ event.date }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}
