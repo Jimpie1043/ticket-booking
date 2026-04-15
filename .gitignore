@@ -15,12 +15,19 @@ yarn-error.log*
 *.sqlite
 database/backups/
 database/temp_data.sql
-instance
+instance/
+migrations/
 
 # --- ASSETS & COMPILED FILES ---
 .sass-cache/
 *.css.map
 *.js.map
+
+# --- PYTHON ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # --- OS & IDE SPECIFIC ---
 # Windows
@@ -47,4 +54,3 @@ logs/
 *.log
 tmp/
 temp/
-__pycache__
