@@ -1,91 +1,15 @@
-.edit-event-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
+body {
+    background-color: red !important;
 }
 
-.edit-event-card {
-    background: #fdf1f7;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+.edit-save-btn {
+    background-color: blue !important;
+    color: white !important;
+    padding: 20px !important;
 }
 
-.edit-event-card h2 {
-    text-align: center;
-    color: #6b4c7a;
-    margin-bottom: 25px;
-    font-size: 2rem;
-}
-
-.edit-event-form .form-group {
-    margin-bottom: 20px;
-}
-
-.edit-event-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #5f4b66;
-}
-
-.edit-event-form input,
-.edit-event-form textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #e7cfe0;
-    border-radius: 12px;
-    font-size: 1rem;
-    background-color: #fff;
-    color: #4b3b52;
-    box-sizing: border-box;
-}
-
-.edit-event-form input:focus,
-.edit-event-form textarea:focus {
-    outline: none;
-    border-color: #cfa7d8;
-    box-shadow: 0 0 0 3px rgba(207, 167, 216, 0.2);
-}
-
-.edit-event-form textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.edit-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 25px;
-    flex-wrap: wrap;
-}
-
-.save-btn,
-.cancel-btn {
-    text-decoration: none;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
-    display: inline-block;
-}
-
-.save-btn {
-    background-color: #bfe3f0;
-    color: #345466;
-}
-
-.save-btn:hover {
-    background-color: #abd9ea;
-}
-
-.cancel-btn {
-    background-color: #f7d6e0;
-    color: #7a3e57;
-}
-
-.cancel-btn:hover {
-    background-color: #efc2d1;
+.edit-cancel-btn {
+    background-color: green !important;
+    color: white !important;
+    padding: 20px !important;
 }
