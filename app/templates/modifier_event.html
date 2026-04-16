@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/modifier_event.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="edit-event-container">
+  <div class="edit-event-card">
+    <h2>Modifier l’événement</h2>
+
+    <form
+      action="{{ url_for('event.edit_event', event_id=event.id) }}"
+      method="post"
+      class="edit-event-form"
+    >
+      <div class="form-group">
+        <label for="title">Titre</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value="{{ event.title }}"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4">
+{{ event.description }}</textarea
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input
+          type="text"
+          id="date"
+          name="date"
+          value="{{ event.date }}"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="capacity">Capacité</label>
+        <input
+          type="number"
+          id="capacity"
+          name="capacity"
+          min="1"
+          value="{{ event.capacity }}"
+          required
+        />
+      </div>
+
+      <div class="edit-actions">
+        <button type="submit" class="save-btn">
+          Enregistrer les modifications
+        </button>
+        <a href="{{ url_for('event.admin_dashboard') }}" class="cancel-btn"
+          >Annuler</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

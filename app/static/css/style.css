@@ -292,3 +292,90 @@ body {
         padding: 25px 0;
     }
 }
+
+
+.nav-menu {
+    align-items: center;
+}
+
+.nav-menu .login-status {
+    display: inline-block;
+    margin-left: 12px;
+    padding: 10px 14px;
+    background-color: #f3e8ff;
+    color: #6b4c7a;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.nav-menu .logout-link {
+    text-decoration: none;
+    color: #7a284b !important;
+    font-weight: 600;
+    background-color: #ffd6e0;
+    padding: 10px 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.nav-menu .logout-link:hover {
+    background-color: #fcbfd0;
+}
+
+.flash-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto 0;
+}
+
+.flash-message {
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.flash-message.success {
+    background-color: #d8f3dc;
+    color: #2d6a4f;
+    border: 1px solid #b7e4c7;
+}
+
+.flash-message.error {
+    background-color: #ffe5ec;
+    color: #9d174d;
+    border: 1px solid #fbcfe8;
+}
+
+.btn-danger {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    background-color: #ffd6e0;
+    color: #7a284b;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.btn-danger:hover {
+    background-color: #fcbfd0;
+}
+
+.dashboard-table td form {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.dashboard-table td .btn-secondary,
+.dashboard-table td .btn-danger {
+    vertical-align: middle;
+}

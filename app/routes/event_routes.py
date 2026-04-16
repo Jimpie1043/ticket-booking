@@ -51,6 +51,22 @@ def create_event():
 
     return redirect(url_for("event.admin_dashboard"))
 
+@event.route("/events/edit/<int:event_id>", methods=["GET", "POST"])
+def edit_event(event_id):
+    event_obj = Event.query.get_or_404(event_id)
+
+    if request.method == "POST":
+        event_obj.title = request.form["title"]
+        event_obj.description = request.form.get("description")
+        event_obj.date = request.form["date"]
+        event_obj.capacity = int(request.form["capacity"])
+
+        db.session.commit()
+
+        return redirect(url_for("event.admin_dashboard"))
+
+    return render_template("modifier_event.html", event=event_obj)
+
 @event.route("/events/delete/<int:event_id>", methods=["POST"])
 def delete_event(event_id):
     event_obj = Event.query.get_or_404(event_id)

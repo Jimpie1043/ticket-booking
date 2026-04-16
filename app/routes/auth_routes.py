@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.extensions import db
 from app.models.user import User
@@ -14,17 +14,21 @@ def signup():
         password_repeat = request.form.get("password_repeat", "")
 
         if not validate_email(email):
-            return "Invalid email format", 400
+            flash("Format de courriel invalide.", "error")
+            return render_template("inscription.html")
 
         if not validate_password(password):
-            return "Password too short (min 8 chars)", 400
+            flash("Le mot de passe doit contenir au moins 8 caractères.", "error")
+            return render_template("inscription.html")
 
         if password != password_repeat:
-            return "Passwords do not match", 400
+            flash("Les mots de passe ne correspondent pas.", "error")
+            return render_template("inscription.html")
 
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            return "Email already registered", 409
+            flash("Cet utilisateur existe déjà.", "error")
+            return render_template("inscription.html")
 
         try:
             new_user = User(
@@ -34,11 +38,13 @@ def signup():
             )
             db.session.add(new_user)
             db.session.commit()
+            flash("Inscription réussie ! Vous pouvez maintenant vous connecter.", "success")
+            return redirect(url_for("auth.login"))
+
         except Exception:
             db.session.rollback()
-            return "Server error while creating user", 500
-
-        return redirect(url_for("auth.login"))
+            flash("Erreur serveur lors de la création du compte.", "error")
+            return render_template("inscription.html")
 
     return render_template("inscription.html")
 
@@ -52,14 +58,18 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if not user:
-            return "Invalid credentials", 401
+            flash("Identifiants invalides.", "error")
+            return render_template("connexion.html")
 
         if not check_password_hash(user.password, password):
-            return "Invalid credentials", 401
+            flash("Identifiants invalides.", "error")
+            return render_template("connexion.html")
 
         session["user_id"] = user.id
         session["role"] = user.role
+        session["user_email"] = user.email
 
+        flash("Connexion réussie !", "success")
         return redirect(url_for("event.index"))
 
     return render_template("connexion.html")
@@ -68,4 +78,5 @@ def login():
 @auth.route("/logout")
 def logout():
     session.clear()
+    flash("Vous êtes maintenant déconnecté.", "success")
     return redirect(url_for("event.index"))
