@@ -15,11 +15,12 @@
                 <p class="team-names">Myriam Boulet · François-Xavier Leclerc</p>
             </div>
 
-            <nav class="nav-menu">
-                <a href="{{ url_for('event.index') }}">Accueil</a>
-                <a href="{{ url_for('auth.login') }}">Connexion</a>
-                <a href="{{ url_for('auth.signup') }}">Inscription</a>
-            </nav>
+         <nav class="nav-menu">
+    <a href="{{ url_for('event.index') }}">Accueil</a>
+    <a href="{{ url_for('auth.login') }}">Connexion</a>
+    <a href="{{ url_for('auth.signup') }}">Inscription</a>
+    <a href="{{ url_for('event.admin_dashboard') }}">Admin</a>
+         </nav>
         </div>
     </header>
 

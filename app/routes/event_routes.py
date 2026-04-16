@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, abort
+from flask import Blueprint, render_template, request, session, redirect, url_for
 from app.extensions import db
 from app.models.event import Event
 from app.models.booking import Booking
-from app.utils.auth import login_required, admin_required
 
 event = Blueprint("event", __name__)
 
@@ -11,6 +10,10 @@ def index():
     events = Event.query.all()
     return render_template("index.html", events=events)
 
+@event.route("/events")
+def all_events():
+    events = Event.query.all()
+    return render_template("events.html", events=events)
 
 @event.route("/event/<int:event_id>")
 def event_page(event_id):
@@ -29,9 +32,12 @@ def event_page(event_id):
         booking=user_booking
     )
 
+@event.route("/admin")
+def admin_dashboard():
+    events = Event.query.all()
+    return render_template("tableau_admin.html", events=events)
 
 @event.route("/events/create", methods=["POST"])
-@admin_required
 def create_event():
     new_event = Event(
         title=request.form["title"],
@@ -43,15 +49,13 @@ def create_event():
     db.session.add(new_event)
     db.session.commit()
 
-    return redirect(url_for("event.index"))
-
+    return redirect(url_for("event.admin_dashboard"))
 
 @event.route("/events/delete/<int:event_id>", methods=["POST"])
-@admin_required
 def delete_event(event_id):
     event_obj = Event.query.get_or_404(event_id)
 
     db.session.delete(event_obj)
     db.session.commit()
 
-    return redirect(url_for("event.index"))
+    return redirect(url_for("event.admin_dashboard"))
