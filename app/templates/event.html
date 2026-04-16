@@ -1,14 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="dashboard-container">
-    <div class="dashboard-card">
-        <h1>{{ event.title }}</h1>
+<div class="container">
+    <div class="event-card">
+        <h2>{{ event.title }}</h2>
+        <p><strong>Description :</strong> {{ event.description }}</p>
         <p><strong>Date :</strong> {{ event.date }}</p>
         <p><strong>Capacité :</strong> {{ event.capacity }}</p>
-        <p><strong>Description :</strong> {{ event.description }}</p>
+        <p><strong>Places réservées :</strong> {{ total_bookings }}</p>
 
-        <a href="{{ url_for('event.index') }}" class="btn-secondary">Retour aux événements</a>
+        {% if session.get("user_id") %}
+            {% if booking %}
+                <p>Vous avez déjà réservé un billet pour cet événement.</p>
+            {% elif total_bookings >= event.capacity %}
+                <p>Cet événement est complet.</p>
+            {% else %}
+                <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="post">
+                    <button type="submit" class="btn-primary">Réserver un billet</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <p>Connectez-vous pour réserver un billet.</p>
+            <a href="{{ url_for('auth.login') }}" class="btn-secondary">Se connecter</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
