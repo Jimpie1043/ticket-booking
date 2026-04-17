@@ -73,6 +73,7 @@ def admin_dashboard():
     return render_template("tableau_admin.html", events=events)
 
 @event.route("/events/create", methods=["POST"])
+@admin_required
 def create_event():
     new_event = Event(
         title=request.form["title"],
@@ -87,6 +88,7 @@ def create_event():
     return redirect(url_for("event.admin_dashboard"))
 
 @event.route("/events/edit/<int:event_id>", methods=["GET", "POST"])
+@admin_required
 def edit_event(event_id):
     event_obj = Event.query.get_or_404(event_id)
 
@@ -103,6 +105,7 @@ def edit_event(event_id):
     return render_template("modifier_event.html", event=event_obj)
 
 @event.route("/events/delete/<int:event_id>", methods=["POST"])
+@admin_required
 def delete_event(event_id):
     event_obj = Event.query.get_or_404(event_id)
 
