@@ -28,7 +28,7 @@ def init_security(app):
             "img-src": ["'self'", "data:"]
         },
         
-        force_https=False, # Change to true in production
-        session_cookie_secure=False, # Change to true in production
-        session_cookie_http_only=True
+        force_https=app.config.get("FORCE_HTTPS", False),
+        session_cookie_secure=app.config.get("SESSION_COOKIE_SECURE", False),
+        session_cookie_http_only=app.config.get("SESSION_COOKIE_HTTPONLY", True)
     )
