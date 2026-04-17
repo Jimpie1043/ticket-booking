@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from app.extensions import db
 from app.models.event import Event
 from app.models.booking import Booking
+from app.utils.auth import admin_required
 
 event = Blueprint("event", __name__)
 
@@ -66,6 +67,7 @@ def book_event(event_id):
     return redirect(url_for("event.event_page", event_id=event_id))
 
 @event.route("/admin")
+@admin_required
 def admin_dashboard():
     events = Event.query.all()
     return render_template("tableau_admin.html", events=events)
