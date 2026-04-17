@@ -27,6 +27,7 @@
 
                     {% if total_bookings < event.capacity %}
                         <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit" class="btn-primary">Réserver un billet</button>
                         </form>
                     {% else %}
@@ -41,6 +42,7 @@
                     </a>
 
                     <form action="{{ url_for('event.cancel_booking', event_id=event.id) }}" method="POST" style="margin-top: 10px;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn-primary">Annuler la réservation</button>
                     </form>
 
@@ -48,6 +50,7 @@
                     <p>Votre réservation a été payée avec succès.</p>
 
                     <form action="{{ url_for('event.cancel_booking', event_id=event.id) }}" method="POST" style="margin-top: 10px;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn-primary">Annuler la réservation</button>
                     </form>
                 {% endif %}
@@ -56,15 +59,12 @@
                 <p>Cet événement est complet.</p>
 
             {% else %}
-<<<<<<< HEAD
-                <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="post">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-=======
                 <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="POST">
->>>>>>> b55989a (Mise à jour du projet)
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <button type="submit" class="btn-primary">Réserver un billet</button>
                 </form>
             {% endif %}
+
         {% else %}
             <p>Connectez-vous pour réserver un billet.</p>
             <a href="{{ url_for('auth.login') }}" class="btn-secondary">Se connecter</a>

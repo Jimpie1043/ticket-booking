@@ -12,6 +12,7 @@
         <p>Paiement fictif pour démonstration du projet.</p>
 
         <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <label for="nom_carte">Nom sur la carte</label>
             <input type="text" id="nom_carte" name="nom_carte" required>
 

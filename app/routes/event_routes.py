@@ -77,9 +77,6 @@ def book_event(event_id):
     db.session.add(new_booking)
     db.session.commit()
 
-<<<<<<< HEAD
-    return redirect(url_for("event.event_page", event_id=event_id))
-=======
     return redirect(url_for("event.event_page", event_id=event_id))
 
 
@@ -151,7 +148,6 @@ def edit_event(event_id):
         event_obj.capacity = int(request.form["capacity"])
 
         db.session.commit()
-
         return redirect(url_for("event.admin_dashboard"))
 
     return render_template("modifier_event.html", event=event_obj)
@@ -169,4 +165,3 @@ def delete_event(event_id):
     db.session.commit()
 
     return redirect(url_for("event.admin_dashboard"))
->>>>>>> b55989a (Mise à jour du projet)
