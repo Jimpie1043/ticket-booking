@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
-from werkzeug.security import generate_password_hash, check_password_hash
+import bcrypt
 from app.extensions import db
 from app.models.user import User
 from app.utils.security import validate_email, validate_password
@@ -31,13 +31,16 @@ def signup():
             return render_template("inscription.html")
 
         try:
+            hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+
             new_user = User(
                 email=email,
-                password=generate_password_hash(password),
+                password=hashed_pw.decode("utf-8"),
                 role="user"
             )
             db.session.add(new_user)
             db.session.commit()
+
             flash("Inscription réussie ! Vous pouvez maintenant vous connecter.", "success")
             return redirect(url_for("auth.login"))
 
@@ -61,7 +64,7 @@ def login():
             flash("Identifiants invalides.", "error")
             return render_template("connexion.html")
 
-        if not check_password_hash(user.password, password):
+        if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
             flash("Identifiants invalides.", "error")
             return render_template("connexion.html")
 

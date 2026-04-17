@@ -1,4 +1,7 @@
 import re
+from flask_talisman import Talisman
+from markupsafe import escape
+
 
 def validate_email(email: str) -> bool:
     pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
@@ -6,10 +9,26 @@ def validate_email(email: str) -> bool:
 
 
 def validate_password(password: str) -> bool:
-    return len(password) >= 8
+    return 8 <= len(password) <= 64
 
 
 def sanitize_string(value: str) -> str:
     if not value:
         return ""
-    return value.strip()
+    return escape(value.strip())
+
+
+def init_security(app):
+    Talisman(
+        app,
+        content_security_policy={
+            "default-src": "'self'",
+            "script-src": ["'self'"],
+            "style-src": ["'self'", "'unsafe-inline'"],
+            "img-src": ["'self'", "data:"]
+        },
+        
+        force_https=False, # Change to true in production
+        session_cookie_secure=False, # Change to true in production
+        session_cookie_http_only=True
+    )

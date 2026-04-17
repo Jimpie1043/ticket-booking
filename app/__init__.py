@@ -1,6 +1,10 @@
 from flask import Flask
 from .config import Config
 from .extensions import db, migrate
+from app.utils.security import init_security
+from flask_wtf.csrf import CSRFProtect
+
+csrf = CSRFProtect()
 
 def create_app():
     app = Flask(
@@ -8,8 +12,11 @@ def create_app():
         template_folder="templates",
         static_folder="static"
     )
-
+    
     app.config.from_object(Config)
+    
+    init_security(app)
+    csrf.init_app(app)
 
     db.init_app(app)
     migrate.init_app(app, db)

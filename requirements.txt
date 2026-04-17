@@ -1,5 +1,7 @@
+Bcrypt
 Flask
 Flask-SQLAlchemy
 Flask-Migrate
+Flask-Talisman
+Flask-WTF
 python-dotenv
-Werkzeug

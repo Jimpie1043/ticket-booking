@@ -7,6 +7,7 @@
         <p>Connectez-vous pour accéder à votre compte et gérer vos réservations.</p>
 
         <form action="{{ url_for('auth.login') }}" method="post" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label for="email">Adresse courriel</label>
                 <input

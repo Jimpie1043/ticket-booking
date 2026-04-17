@@ -385,3 +385,8 @@ body {
 .dashboard-table td .btn-danger {
     vertical-align: middle;
 }
+
+
+.edit-event-card {
+    padding: 2em;
+}

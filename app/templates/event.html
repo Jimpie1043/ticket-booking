@@ -16,6 +16,7 @@
                 <p>Cet événement est complet.</p>
             {% else %}
                 <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <button type="submit" class="btn-primary">Réserver un billet</button>
                 </form>
             {% endif %}

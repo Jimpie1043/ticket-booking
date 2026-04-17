@@ -5,6 +5,7 @@
     <p>Inscrivez-vous pour réserver vos billets et accéder aux événements.</p>
 
     <form action="{{ url_for('auth.signup') }}" method="post" class="auth-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <div class="form-group">
         <label for="email">Adresse courriel</label>
         <input
