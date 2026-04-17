@@ -7,4 +7,9 @@ class Event(db.Model):
     date = db.Column(db.String(50))
     capacity = db.Column(db.Integer, nullable=False)
 
-    bookings = db.relationship("Booking", backref="event", lazy=True)
+    bookings = db.relationship(
+        "Booking",
+        backref="event",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )

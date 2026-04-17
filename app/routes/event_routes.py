@@ -104,7 +104,11 @@ def edit_event(event_id):
 def delete_event(event_id):
     event_obj = Event.query.get_or_404(event_id)
 
-    db.session.delete(event_obj)
-    db.session.commit()
+    try:
+        db.session.delete(event_obj)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(e)
 
     return redirect(url_for("event.admin_dashboard"))
