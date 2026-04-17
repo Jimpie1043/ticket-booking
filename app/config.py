@@ -2,7 +2,16 @@ import os
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "devkey")
-    SQLALCHEMY_DATABASE_URI = "sqlite:///site.db"
+    
+    SQLALCHEMY_DATABASE_URI = (
+        "sqlite:///" + os.path.join(
+            os.path.abspath(os.path.dirname(__file__)),
+            "..",
+            "instance",
+            "site.db"
+        )
+    )
+    
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     SESSION_COOKIE_SAMESITE = "Lax"
