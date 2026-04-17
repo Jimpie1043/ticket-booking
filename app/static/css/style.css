@@ -11,6 +11,17 @@ body {
     line-height: 1.6;
 }
 
+
+/* Marges et padding */
+.margin-top {
+    margin-top: 20px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+
 /* Conteneur général */
 .container,
 .form-container,
@@ -135,6 +146,7 @@ body {
 .dashboard-table-section h2 {
     padding-left: 1em;
     margin-bottom: 20px;
+    margin-top: 20px;
     color: #5b3f6a;
 }
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
 from app.extensions import db
 from app.models.event import Event
 from app.utils.auth import admin_required
