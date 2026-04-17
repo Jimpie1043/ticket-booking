@@ -21,9 +21,14 @@
                 <a href="{{ url_for('event.index') }}">Accueil</a>
                 <a href="{{ url_for('auth.login') }}">Connexion</a>
                 <a href="{{ url_for('auth.signup') }}">Inscription</a>
+<<<<<<< HEAD
                 {% if session.get("role", "") == "admin" %}
                 <a href="{{ url_for('admin.admin_dashboard') }}">Admin</a>
                 {% endif %}
+=======
+                <a href="{{ url_for('event.admin_dashboard') }}">Admin</a>
+               
+>>>>>>> b55989a (Mise à jour du projet)
 
                 {% if session.get("user_email") %}
                     <a href="{{ url_for('user.user_profile') }}">Profil</a>

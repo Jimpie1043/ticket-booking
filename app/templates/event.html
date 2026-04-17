@@ -11,12 +11,57 @@
 
         {% if session.get("user_id") %}
             {% if booking %}
-                <p>Vous avez déjà réservé un billet pour cet événement.</p>
+                <p>
+                    <strong>Statut de votre réservation :</strong>
+                    {% if booking.status == "cancelled" %}
+                        Annulée
+                    {% elif booking.status == "pending" %}
+                        En attente de paiement
+                    {% elif booking.status == "paid" %}
+                        Payée
+                    {% endif %}
+                </p>
+
+                {% if booking.status == "cancelled" %}
+                    <p>Votre réservation a été annulée.</p>
+
+                    {% if total_bookings < event.capacity %}
+                        <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="POST">
+                            <button type="submit" class="btn-primary">Réserver un billet</button>
+                        </form>
+                    {% else %}
+                        <p>Cet événement est complet.</p>
+                    {% endif %}
+
+                {% elif booking.status == "pending" %}
+                    <p>Votre réservation est en attente de paiement.</p>
+
+                    <a href="{{ url_for('event.simulation_paiement', event_id=event.id) }}" class="btn-secondary">
+                        Procéder au paiement
+                    </a>
+
+                    <form action="{{ url_for('event.cancel_booking', event_id=event.id) }}" method="POST" style="margin-top: 10px;">
+                        <button type="submit" class="btn-primary">Annuler la réservation</button>
+                    </form>
+
+                {% elif booking.status == "paid" %}
+                    <p>Votre réservation a été payée avec succès.</p>
+
+                    <form action="{{ url_for('event.cancel_booking', event_id=event.id) }}" method="POST" style="margin-top: 10px;">
+                        <button type="submit" class="btn-primary">Annuler la réservation</button>
+                    </form>
+                {% endif %}
+
             {% elif total_bookings >= event.capacity %}
                 <p>Cet événement est complet.</p>
+
             {% else %}
+<<<<<<< HEAD
                 <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="post">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+=======
+                <form action="{{ url_for('event.book_event', event_id=event.id) }}" method="POST">
+>>>>>>> b55989a (Mise à jour du projet)
                     <button type="submit" class="btn-primary">Réserver un billet</button>
                 </form>
             {% endif %}

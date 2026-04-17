@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation de paiement</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simulation_paiement.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulation de paiement sécurisé</h1>
+        <p>Paiement fictif pour démonstration du projet.</p>
+
+        <form method="POST">
+            <label for="nom_carte">Nom sur la carte</label>
+            <input type="text" id="nom_carte" name="nom_carte" required>
+
+            <label for="numero_carte">Numéro de carte</label>
+            <input type="text" id="numero_carte" name="numero_carte" required>
+
+            <div class="row">
+                <div class="field">
+                    <label for="expiration">Date d’expiration (MM/YY)</label>
+                    <input type="text" id="expiration" name="expiration" placeholder="MM/YY" required>
+                </div>
+
+                <div class="field">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" required>
+                </div>
+            </div>
+
+            <button type="submit">Payer maintenant</button>
+        </form>
+
+        <p class="note">Ceci est une simulation, aucun vrai paiement ne sera effectué.</p>
+    </div>
+</body>
+</html>

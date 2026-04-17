@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fdf6f9, #edf5ff);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 550px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    text-align: center;
+    color: #4b3f72;
+    margin-bottom: 10px;
+}
+
+p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d8d8e6;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+    background-color: #fafafe;
+}
+
+input:focus {
+    outline: none;
+    border-color: #9a8cfc;
+    box-shadow: 0 0 0 3px rgba(154, 140, 252, 0.18);
+}
+
+.row {
+    display: flex;
+    gap: 15px;
+}
+
+.field {
+    flex: 1;
+}
+
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    background-color: #9a8cfc;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #7f72df;
+}
+
+.note {
+    margin-top: 18px;
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+}
+
+.retour {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #7b6fd6;
+    font-weight: bold;
+}
+
+.retour:hover {
+    text-decoration: underline;
+}
+
+.resume-box {
+    background-color: #f8f3ff;
+    border: 1px solid #e5dbff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.resume-box h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #5f4b8b;
+}
+
+.resume-box p {
+    text-align: left;
+    margin: 6px 0;
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
