@@ -3,6 +3,7 @@ import bcrypt
 from app.extensions import db
 from app.models.user import User
 from app.utils.security import validate_email, validate_password
+from app.utils.auth import login_required
 
 auth = Blueprint("auth", __name__)
 
@@ -79,6 +80,7 @@ def login():
 
 
 @auth.route("/logout")
+@login_required
 def logout():
     session.clear()
     flash("Vous êtes maintenant déconnecté.", "success")

@@ -24,9 +24,13 @@ def create_app():
     from .routes.auth_routes import auth
     from .routes.event_routes import event
     from .routes.booking_routes import booking
+    from .routes.admin_routes import admin
+    from .routes.user_routes import user
 
     app.register_blueprint(auth)
     app.register_blueprint(event)
     app.register_blueprint(booking)
+    app.register_blueprint(admin)
+    app.register_blueprint(user)
 
     return app

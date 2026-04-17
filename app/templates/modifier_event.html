@@ -9,7 +9,7 @@
     <div class="edit-event-card">
         <h2>Modifier l’événement</h2>
 
-        <form action="{{ url_for('event.edit_event', event_id=event.id) }}" method="post" class="edit-event-form">
+        <form action="{{ url_for('admin.edit_event', event_id=event.id) }}" method="post" class="edit-event-form">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label for="title">Titre</label>
@@ -33,7 +33,7 @@
 
             <div class="edit-actions">
                 <button type="submit" class="edit-save-btn">Enregistrer les modifications</button>
-                <a href="{{ url_for('event.admin_dashboard') }}" class="edit-cancel-btn">Annuler</a>
+                <a href="{{ url_for('admin.admin_dashboard') }}" class="edit-cancel-btn">Annuler</a>
             </div>
         </form>
     </div>
