@@ -34,6 +34,10 @@ def change_password():
     if not bcrypt.checkpw(current_password.encode("utf-8"), user_obj.password.encode("utf-8")):
         flash("Mot de passe actuel incorrect.", "error")
         return redirect(url_for("user.user_profile"))
+    
+    if (new_password == current_password):
+        flash("Le nouveau mot de passe ne peut pas être le même que le mot de passe actuel.", "error")
+        return redirect(url_for("user.user_profile"))
 
     if len(new_password) < 8:
         flash("Le nouveau mot de passe est trop court.", "error")

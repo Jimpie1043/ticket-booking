@@ -14,20 +14,57 @@
         <form method="POST">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <label for="nom_carte">Nom sur la carte</label>
-            <input type="text" id="nom_carte" name="nom_carte" required>
+            <input 
+                type="text" 
+                id="nom_carte" 
+                name="nom_carte" 
+                value="{{ form_data.nom_carte if form_data else '' }}" 
+                required
+            >
+            {% if errors.name %}
+                <p class="error">{{ errors.name }}</p>
+            {% endif %}
 
             <label for="numero_carte">Numéro de carte</label>
-            <input type="text" id="numero_carte" name="numero_carte" required>
+            <input 
+                type="text" 
+                id="numero_carte" 
+                name="numero_carte" 
+                value="{{ form_data.numero_carte if form_data else '' }}" 
+                required
+            >
+            {% if errors.number %}
+                <p class="error">{{ errors.number }}</p>
+            {% endif %}
 
             <div class="row">
                 <div class="field">
                     <label for="expiration">Date d’expiration (MM/YY)</label>
-                    <input type="text" id="expiration" name="expiration" placeholder="MM/YY" required>
+                    <input 
+                        type="text" 
+                        id="expiration" 
+                        name="expiration" 
+                        placeholder="MM/YY" 
+                        value="{{ form_data.expiration if form_data else '' }}" 
+                        required
+                    >
+                    {% if errors.expiration %}
+                        <p class="error">{{ errors.expiration }}</p>
+                    {% endif %}
                 </div>
 
                 <div class="field">
                     <label for="cvv">CVV</label>
-                    <input type="text" id="cvv" name="cvv" required>
+                    <input 
+                        type="text" 
+                        id="cvv" 
+                        name="cvv" 
+                        value="{{ form_data.cvv if form_data else '' }}" 
+                        required
+                    >
+                    {% if errors.cvv %}
+                        <p class="error">{{ errors.cvv }}</p>
+                    {% endif %}
                 </div>
             </div>
 

@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from app.extensions import db
 from app.models.event import Event
 from app.models.booking import Booking
+import re
+from datetime import datetime
 
 event = Blueprint("event", __name__)
 
@@ -80,6 +82,50 @@ def book_event(event_id):
     return redirect(url_for("event.event_page", event_id=event_id))
 
 
+# Fonctions pour vérification des inputs de simulation de paiement
+def validate_cardholder_name(name: str) -> bool:
+    # Filtre pour: lettres, espaces, traits d'union et apostrophes, 2–60 caractères
+    return bool(re.fullmatch(r"[A-Za-zÀ-ÿ\s'-]{2,60}", name.strip()))
+
+
+def validate_card_number(number: str) -> bool:
+    # Enlève les espaces et tirets
+    number = re.sub(r"[ -]", "", number)
+
+    # Doit être entre 8 et 19 chiffres
+    if not re.fullmatch(r"\d{8,19}", number):
+        return False
+    
+    return True
+
+
+def validate_expiration_date(date_str: str) -> bool:
+    # Format MM/YY, filtre les caractères inutiles
+    if not re.fullmatch(r"(0[1-9]|1[0-2])\/\d{2}", date_str):
+        return False
+
+    month, year = date_str.split("/")
+    month = int(month)
+    year = int("20" + year)
+
+    now = datetime.now()
+    current_year = now.year
+    current_month = now.month
+
+    # Vérifie si la carte est expirée
+    if year < current_year:
+        return False
+    if year == current_year and month < current_month:
+        return False
+
+    return True
+
+
+def validate_cvv(cvv: str) -> bool:
+    # 3 OU 4 chiffres
+    return bool(re.fullmatch(r"\d{3,4}", cvv))
+
+
 @event.route("/simulation-paiement/<int:event_id>", methods=["GET", "POST"])
 def simulation_paiement(event_id):
     if "user_id" not in session:
@@ -92,12 +138,38 @@ def simulation_paiement(event_id):
         user_id=session["user_id"]
     ).first_or_404()
 
-    if request.method == "POST":
-        booking.status = "paid"
-        db.session.commit()
-        return redirect(url_for("event.event_page", event_id=event_id))
+    errors = {}
 
-    return render_template("simulation_paiement.html", event=event_obj, booking=booking)
+    if request.method == "POST":
+        cardholder_name = request.form.get("nom_carte", "")
+        card_number = request.form.get("numero_carte", "")
+        card_expiration_date = request.form.get("expiration", "")
+        card_cvv = request.form.get("cvv", "")
+
+        if not validate_cardholder_name(cardholder_name):
+            errors["name"] = "Invalid name"
+
+        if not validate_card_number(card_number):
+            errors["number"] = "Invalid card number"
+
+        if not validate_expiration_date(card_expiration_date):
+            errors["expiration"] = "Invalid or expired date"
+
+        if not validate_cvv(card_cvv):
+            errors["cvv"] = "Invalid CVV"
+
+        if not errors:
+            booking.status = "paid"
+            db.session.commit()
+            return redirect(url_for("event.event_page", event_id=event_id))
+        
+        
+    return render_template(
+        "simulation_paiement.html",
+        event=event_obj,
+        booking=booking,
+        errors=errors
+    )
 
 
 @event.route("/booking/cancel/<int:event_id>", methods=["POST"])
@@ -114,54 +186,3 @@ def cancel_booking(event_id):
     db.session.commit()
 
     return redirect(url_for("event.event_page", event_id=event_id))
-
-
-@event.route("/admin")
-def admin_dashboard():
-    events = Event.query.all()
-    return render_template("tableau_admin.html", events=events)
-
-
-@event.route("/events/create", methods=["POST"])
-def create_event():
-    new_event = Event(
-        title=request.form["title"],
-        description=request.form.get("description"),
-        date=request.form["date"],
-        capacity=int(request.form["capacity"])
-    )
-
-    db.session.add(new_event)
-    db.session.commit()
-
-    return redirect(url_for("event.admin_dashboard"))
-
-
-@event.route("/events/edit/<int:event_id>", methods=["GET", "POST"])
-def edit_event(event_id):
-    event_obj = Event.query.get_or_404(event_id)
-
-    if request.method == "POST":
-        event_obj.title = request.form["title"]
-        event_obj.description = request.form.get("description")
-        event_obj.date = request.form["date"]
-        event_obj.capacity = int(request.form["capacity"])
-
-        db.session.commit()
-        return redirect(url_for("event.admin_dashboard"))
-
-    return render_template("modifier_event.html", event=event_obj)
-
-
-@event.route("/events/delete/<int:event_id>", methods=["POST"])
-def delete_event(event_id):
-    event_obj = Event.query.get_or_404(event_id)
-
-    bookings = Booking.query.filter_by(event_id=event_id).all()
-    for booking in bookings:
-        db.session.delete(booking)
-
-    db.session.delete(event_obj)
-    db.session.commit()
-
-    return redirect(url_for("event.admin_dashboard"))
