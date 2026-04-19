@@ -1,5 +1,5 @@
 
-# Système de réservation de billets
+# [Système de réservation de billets](www.ticket-booking.fxleclerc.com)
 
 ## Description
 
@@ -18,7 +18,8 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 - **Frontend** : HTML (Jinja2), CSS
 - **Sécurité** : Flask-Talisman
 - **Configuration** : python-dotenv (.env)
-- **Serveur de production** : Gunicorn (déploiement sur Render)
+- **Serveur de production** : Gunicorn
+- **Hébergement** : Render
 ## Fonctionnalités
 
 ### Routes
