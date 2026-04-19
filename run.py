@@ -5,6 +5,10 @@ import os
 
 app = create_app()
 
+with app.app_context():
+    upgrade()
+    run_seed()
+
 if __name__ == "__main__":
     debug = os.getenv("FLASK_ENV") != "production"
     app.run(debug=debug)
