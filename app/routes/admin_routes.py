@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from datetime import datetime
 from app.extensions import db
 from app.models.event import Event
 from app.utils.auth import admin_required
@@ -6,6 +7,13 @@ from app.utils.auth import admin_required
 admin = Blueprint("admin", __name__)
 
 # Routes qui requièrent un compte admin
+
+def validate_date(date_str):
+    try:
+        datetime.strptime(date_str, "%Y-%m-%d")
+        return True
+    except ValueError:
+        return False
 
 @admin.route("/admin")
 @admin_required
@@ -16,10 +24,16 @@ def admin_dashboard():
 @admin.route("/events/create", methods=["POST"])
 @admin_required
 def create_event():
+
+    date = request.form["date"]
+
+    if not validate_date(date):
+        return "Format de date invalide. Utiliser YYYY-MM-DD", 400
+
     new_event = Event(
         title=request.form["title"],
         description=request.form.get("description"),
-        date=request.form["date"],
+        date=date,
         capacity=int(request.form["capacity"]),
         tags=request.form.get("tags") or "Aucun"
     )
@@ -32,13 +46,19 @@ def create_event():
 @admin.route("/events/edit/<int:event_id>", methods=["GET", "POST"])
 @admin_required
 def edit_event(event_id):
-    # Cherche l'événement avec son id et retourne 404 s'il n'est pas trouvé
+
     event_obj = Event.query.get_or_404(event_id)
 
     if request.method == "POST":
+
+        date = request.form["date"]
+
+        if not validate_date(date):
+            return "Format de date invalide. Utiliser YYYY-MM-DD", 400
+
         event_obj.title = request.form["title"]
         event_obj.description = request.form.get("description")
-        event_obj.date = request.form["date"]
+        event_obj.date = date
         event_obj.capacity = int(request.form["capacity"])
         event_obj.tags = request.form.get("tags") or "Aucun"
 
