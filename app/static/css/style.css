@@ -7,6 +7,8 @@
 body {
     min-height: 100vh;
     min-width: 100vw;
+    display: flex;
+    flex-direction: column;
     font-family: Arial, sans-serif;
     background-color: #fdfaf6;
     color: #5a4b51;
@@ -83,6 +85,7 @@ body {
 
 /* Main */
 .site-content {
+    flex: 1;
     padding: 40px 0;
 }
 
