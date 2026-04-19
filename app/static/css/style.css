@@ -5,6 +5,8 @@
 }
 
 body {
+    min-height: 100vh;
+    min-width: 100vw;
     font-family: Arial, sans-serif;
     background-color: #fdfaf6;
     color: #5a4b51;
