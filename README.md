@@ -18,7 +18,7 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 - **Frontend** : HTML (Jinja2), CSS
 - **Sécurité** : Flask-Talisman
 - **Configuration** : python-dotenv (.env)
-- **Serveur de production** : Gunicorn
+- **Serveur de production** : Gunicorn (déploiement sur Render)
 ## Fonctionnalités
 
 ### Routes
