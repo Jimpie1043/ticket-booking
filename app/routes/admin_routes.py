@@ -5,6 +5,8 @@ from app.utils.auth import admin_required
 
 admin = Blueprint("admin", __name__)
 
+# Routes qui requièrent un compte admin
+
 @admin.route("/admin")
 @admin_required
 def admin_dashboard():
@@ -29,6 +31,7 @@ def create_event():
 @admin.route("/events/edit/<int:event_id>", methods=["GET", "POST"])
 @admin_required
 def edit_event(event_id):
+    # Cherche l'événement avec son id et retourne 404 s'il n'est pas trouvé
     event_obj = Event.query.get_or_404(event_id)
 
     if request.method == "POST":
