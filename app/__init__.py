@@ -7,9 +7,6 @@ from .extensions import db, migrate
 from app.utils.security import init_security
 from flask_wtf.csrf import CSRFProtect
 
-from app.models.user import User
-import bcrypt
-
 csrf = CSRFProtect()
 
 load_dotenv()
@@ -21,7 +18,6 @@ def create_app():
         static_folder="static"
     )
 
-    # Crée le instance folder s'il n'existe pas
     instance_path = os.path.join(
         os.path.dirname(__file__),
         "..",
@@ -36,31 +32,6 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
-
-    # Crée le compte admin s'il n'existe pas
-    with app.app_context():
-        db.create_all()
-
-        admin_email = os.getenv("ADMIN_EMAIL")
-        admin_password = os.getenv("ADMIN_PASSWORD")
-
-        if admin_email and admin_password:
-            admin = User.query.filter_by(email=admin_email).first()
-
-            if not admin:
-                hashed = bcrypt.hashpw(
-                    admin_password.encode("utf-8"),
-                    bcrypt.gensalt()
-                )
-
-                admin = User(
-                    email=admin_email,
-                    password=hashed.decode("utf-8"),
-                    role="admin"
-                )
-
-                db.session.add(admin)
-                db.session.commit()
 
     from .routes.auth_routes import auth
     from .routes.event_routes import event

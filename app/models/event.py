@@ -6,6 +6,7 @@ class Event(db.Model):
     description = db.Column(db.Text)
     date = db.Column(db.String(50))
     capacity = db.Column(db.Integer, nullable=False)
+    tags = db.Column(db.String(20))
 
     bookings = db.relationship(
         "Booking",

@@ -18,6 +18,7 @@
                 <h3>{{ event.title }}</h3>
                 <p><strong>Date :</strong> {{ event.date }}</p>
                 <p><strong>Description :</strong> {{ event.description }}</p>
+                <p><strong>Tags :</strong> {{ event.tags }}</p>
                 <a href="{{ url_for('event.event_page', event_id=event.id) }}" class="all-event-btn">
                     Voir les détails
                 </a>

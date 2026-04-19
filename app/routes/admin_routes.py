@@ -20,7 +20,8 @@ def create_event():
         title=request.form["title"],
         description=request.form.get("description"),
         date=request.form["date"],
-        capacity=int(request.form["capacity"])
+        capacity=int(request.form["capacity"]),
+        tags=request.form.get("tags") or "Aucun"
     )
 
     db.session.add(new_event)
@@ -39,6 +40,7 @@ def edit_event(event_id):
         event_obj.description = request.form.get("description")
         event_obj.date = request.form["date"]
         event_obj.capacity = int(request.form["capacity"])
+        event_obj.tags = request.form.get("tags") or "Aucun"
 
         db.session.commit()
 
