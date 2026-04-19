@@ -32,7 +32,7 @@ def create_event():
 
     new_event = Event(
         title=request.form["title"],
-        description=request.form.get("description"),
+        description=request.form.get("description") or "Aucune",
         date=date,
         capacity=int(request.form["capacity"]),
         tags=request.form.get("tags") or "Aucun"
@@ -57,7 +57,7 @@ def edit_event(event_id):
             return "Format de date invalide. Utiliser YYYY-MM-DD", 400
 
         event_obj.title = request.form["title"]
-        event_obj.description = request.form.get("description")
+        event_obj.description = request.form.get("description") or "Aucune"
         event_obj.date = date
         event_obj.capacity = int(request.form["capacity"])
         event_obj.tags = request.form.get("tags") or "Aucun"
