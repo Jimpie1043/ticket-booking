@@ -16,7 +16,6 @@ yarn-error.log*
 database/backups/
 database/temp_data.sql
 instance/
-migrations/
 
 # --- ASSETS & COMPILED FILES ---
 .sass-cache/
