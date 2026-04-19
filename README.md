@@ -21,15 +21,34 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 - **Serveur de production** : Gunicorn
 ## Fonctionnalités
 
-**Routes**
-- Authentification: Signup, login, logout.
-- Événements: Browsing, booking, paiement (simulé), cancellation.
-- Tableau utilisateur: Résérvations avec date + statut, courriel, et changement de mot de passe.
-- Tableau administrateur: Création, modification, suppression d'événements.
+### Routes
+- **Authentification** : Signup, login, logout.
+- **Événements** : Browsing, booking, paiement (simulé), cancellation.
+- **Tableau utilisateur** : Résérvations avec date + statut, courriel, et changement de mot de passe.
+- **Tableau administrateur** : Création, modification, suppression d'événements.
 
-**Sécurité**
-- Validation d'entrées utilisateur: Formulaire de paiement, inscription, changement de mot de passe...
-- Protection CSRF avec des tokens pour les formulaires
+### Sécurité
+- **Validation d'entrées utilisateur** : Formulaire de paiement, inscription, changement de mot de passe...
+- **Protection CSRF** via tokens Flask-WTF.
+- **Hashage** des mots de passe avec bcrypt.
+- **Gestion des sessions** utilisateurs sécurisées.
+- **Contrôle d’accès** basé sur les rôles.
+
+### Backend
+- **Structure en modules** (routes, modèles, utils).
+- **Pattern factory** (create_app) pour initialisation de l’application.
+- **ORM SQLAlchemy** pour gestion de la base de données.
+- **Système de migration** de base de données (Flask-Migrate / Alembic).
+- **Configuration centralisée** via classe Config et variables d’environnement.
+
+### Base de données
+- **Stockage** des utilisateurs, événements et réservations.
+- **Relations** entre utilisateurs et réservations.
+- **Gestion des statuts** de réservation (active, annulée).
+
+### Frontend
+- **Templates HTML** servis côté serveur (Jinja2).
+- **Interface CSS** par section (événements, paiement, administration).
 ## Structure du projet
 
 ```text
@@ -97,15 +116,17 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 
 Pour ce projet, les variables suivantes doivent être ajoutées au fichier .env.
 
+**Clés**
+
 `SECRET_KEY`
 
 `FLASK_ENV`
 
+**Compte administrateur initial**
+
 `ADMIN_EMAIL`
 
 `ADMIN_PASSWORD`
-
-
 ## Auteurs
 
 - [François-Xavier Leclerc](https://www.github.com/Jimpie1043)
