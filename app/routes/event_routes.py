@@ -22,8 +22,9 @@ def all_events():
 
 @event.route("/event/<int:event_id>")
 def event_page(event_id):
-    event_obj = Event.query.get_or_404(event_id)
+    event_obj = Event.query.get_or_404(event_id) # Si l'event n'existe pas, retourne 404
 
+    # Verifie si le user a un booking
     user_booking = None
     if "user_id" in session:
         user_booking = Booking.query.filter_by(
@@ -31,6 +32,7 @@ def event_page(event_id):
             user_id=session["user_id"]
         ).first()
 
+    # Compte le nombre de bookings actifs pour un event
     total_bookings = Booking.query.filter(
         Booking.event_id == event_id,
         Booking.status != "cancelled"

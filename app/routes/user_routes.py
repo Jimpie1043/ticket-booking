@@ -31,6 +31,7 @@ def change_password():
     new_password = request.form.get("new_password", "")
     confirm_password = request.form.get("confirm_password", "")
 
+    # Performe plusieurs verifications
     if not bcrypt.checkpw(current_password.encode("utf-8"), user_obj.password.encode("utf-8")):
         flash("Mot de passe actuel incorrect.", "error")
         return redirect(url_for("user.user_profile"))

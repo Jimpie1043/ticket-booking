@@ -14,12 +14,13 @@ def signup():
         password = request.form.get("password", "")
         password_repeat = request.form.get("password_repeat", "")
 
+        # Performe plusieurs validation d'inputs
         if not validate_email(email):
             flash("Format de courriel invalide.", "error")
             return render_template("inscription.html")
 
         if not validate_password(password):
-            flash("Le mot de passe doit contenir au moins 8 caractères.", "error")
+            flash("Le mot de passe doit contenir entre 8 et 64 caractères.", "error")
             return render_template("inscription.html")
 
         if password != password_repeat:
@@ -39,7 +40,7 @@ def signup():
                 password=hashed_pw.decode("utf-8"),
                 role="user"
             )
-            db.session.add(new_user)
+            db.session.add(new_user) # Ajoute l'utilisateur a la db
             db.session.commit()
 
             flash("Inscription réussie ! Vous pouvez maintenant vous connecter.", "success")
@@ -59,16 +60,17 @@ def login():
         email = request.form.get("email", "").strip()
         password = request.form.get("password", "")
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(email=email).first() # Cherche la db pour trouver le user auquel le email correspond
 
-        if not user:
+        if not user: # Si l'utilisateur n'existe pas
             flash("Identifiants invalides.", "error")
             return render_template("connexion.html")
 
-        if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
+        if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")): # Si le password est mauvais
             flash("Identifiants invalides.", "error")
             return render_template("connexion.html")
 
+        # Sinon, initialise la session
         session["user_id"] = user.id
         session["role"] = user.role
         session["user_email"] = user.email
