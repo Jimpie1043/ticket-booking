@@ -15,6 +15,7 @@ yarn-error.log*
 *.sqlite
 database/backups/
 database/temp_data.sql
+instance/
 migrations/
 
 # --- ASSETS & COMPILED FILES ---

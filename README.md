@@ -101,6 +101,10 @@ Pour ce projet, les variables suivantes doivent être ajoutées au fichier .env.
 
 `FLASK_ENV`
 
+`ADMIN_EMAIL`
+
+`ADMIN_PASSWORD`
+
 
 ## Auteurs
 
