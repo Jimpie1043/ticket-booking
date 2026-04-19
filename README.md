@@ -8,6 +8,16 @@ Ce projet est une application web de réservation de billets qui permet aux util
 **Important** :  
 Ce projet a été réalisé dans un cadre scolaire.  
 Il ne s’agit **pas d’un site web réel/fonctionnel**.
+## Technologies
+
+- **Backend** : Python, Flask
+- **Base de données** : SQLite
+- **ORM** : Flask-SQLAlchemy
+- **Migrations** : Flask-Migrate (Alembic)
+- **Authentification** : Flask sessions + bcrypt
+- **Frontend** : HTML (Jinja2), CSS
+- **Sécurité** : Flask-Talisman
+- **Configuration** : python-dotenv (.env)
 ## Fonctionnalités
 
 **Routes**
@@ -82,6 +92,15 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 │       site.db            # Base de données SQLite
 └───migrations             # Gestion des migrations de base de données (Flask-Migrate/Alembic)
 ```
+## Variables d'environnement
+
+Pour ce projet, les variables suivantes doivent être ajoutées au fichier .env.
+
+`SECRET_KEY`
+
+`FLASK_ENV`
+
+
 ## Auteurs
 
 - [François-Xavier Leclerc](https://www.github.com/Jimpie1043)
