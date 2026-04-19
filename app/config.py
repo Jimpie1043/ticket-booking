@@ -11,7 +11,7 @@ class Config:
             os.path.abspath(os.path.dirname(__file__)),
             "..",
             "instance",
-            "site_v2.db"
+            "site.db"
         )
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
