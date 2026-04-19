@@ -1,19 +1,11 @@
-import os
 from app import create_app
-from app.extensions import db
-from seed import run_seed
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = create_app()
 
-DB_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "instance",
-    "site.db"
-)
-
-with app.app_context():
-    if os.path.exists(DB_PATH):
-        os.remove(DB_PATH)
-
-    db.create_all()
-    run_seed(app)
+if __name__ == "__main__":
+    debug = os.getenv("FLASK_ENV") != "production"
+    app.run(debug=debug)
