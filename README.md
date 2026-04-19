@@ -56,10 +56,11 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 .
 │   .env                   # Variables d’environnement sensibles
 │   .gitignore             # Fichiers ignorés par Git
-│   LICENSE.txt              # License MIT
+│   LICENSE.txt            # License MIT
 │   README.md              # Documentation
 │   requirements.txt       # Dépendances Python
 │   run.py                 # Point d’entrée pour lancer l’application
+│   seed.py                # Initialisation de la base de données
 │
 ├───app                    # Dossier principal
 │   │   config.py          # Configuration globale (clé secrète, DB, sécurité)
