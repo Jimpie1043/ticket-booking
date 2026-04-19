@@ -4,10 +4,6 @@
 ## Description
 
 Ce projet est une application web de réservation de billets qui permet aux utilisateurs de consulter des événements, effectuer des réservations et gérer leur compte utilisateur.
-
-**Important** :  
-Ce projet a été réalisé dans un cadre scolaire.  
-Il ne s’agit **pas d’un site web réel/fonctionnel**.
 ## Technologies
 
 - **Backend** : Python, Flask
@@ -25,31 +21,27 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 ### Routes
 - **Authentification** : Signup, login, logout.
 - **Événements** : Browsing, booking, paiement (simulé), cancellation.
-- **Tableau utilisateur** : Résérvations avec date + statut, courriel, et changement de mot de passe.
-- **Tableau administrateur** : Création, modification, suppression d'événements.
+- **Tableau utilisateur** : Infos de résérvations et de profil.
+- **Tableau administrateur** : Gestion d'événements.
 
 ### Sécurité
-- **Validation d'entrées utilisateur** : Formulaire de paiement, inscription, changement de mot de passe...
+- **Validation d'entrées utilisateur**.
 - **Protection CSRF** via tokens Flask-WTF.
 - **Hashage** des mots de passe avec bcrypt.
-- **Gestion des sessions** utilisateurs sécurisées.
+- **Gestion des sessions** utilisateurs sécurisée.
 - **Contrôle d’accès** basé sur les rôles.
 
 ### Backend
-- **Structure en modules** (routes, modèles, utils).
-- **Pattern factory** (create_app) pour initialisation de l’application.
-- **ORM SQLAlchemy** pour gestion de la base de données.
-- **Système de migration** de base de données (Flask-Migrate / Alembic).
-- **Configuration centralisée** via classe Config et variables d’environnement.
+- **Gestion et migrations** de la base de données.
+- **Configuration centralisée** : Via config.py et .env.
 
 ### Base de données
 - **Stockage** des utilisateurs, événements et réservations.
 - **Relations** entre utilisateurs et réservations.
-- **Gestion des statuts** de réservation (active, annulée).
+- **Gestion des statuts** de réservation.
 
 ### Frontend
-- **Templates HTML** servis côté serveur (Jinja2).
-- **Interface CSS** par section (événements, paiement, administration).
+- **Jinja2 :** Templates HTML.
 ## Structure du projet
 
 ```text
@@ -118,23 +110,52 @@ Il ne s’agit **pas d’un site web réel/fonctionnel**.
 
 Pour ce projet, les variables suivantes doivent être ajoutées au fichier .env.
 
-**Clés**
+**Clés d'environnement**
 
 `SECRET_KEY`
 
+*Clé secrète utilisée pour signer les sessions et sécuriser les mécanismes sensibles (cookies, CSRF).*
+
 `FLASK_ENV`
 
-**Compte administrateur initial**
+ *Définit l’environnement d’exécution (development ou production) et active/désactive certains comportements de sécurité (HTTPS, cookies sécurisés).*
+
+**Identifiants du compte administrateur initial**
 
 `ADMIN_EMAIL`
 
 `ADMIN_PASSWORD`
+## Commandes Utiles
+
+**Installation des dépendances :**
+
+`pip install -r requirements.txt`
+
+**Démarrer l'application :**
+
+`gunicorn run:app`
+
+**Migration des données :**
+
+`flask db migrate -m "commentaire"`
+
+**Applique les migrations à la base de données :**
+
+`flask db upgrade`
 ## Auteurs
 
-- [François-Xavier Leclerc](https://www.github.com/Jimpie1043)
-- [Myriam Boulet](https://www.github.com/Mymytos)
+[François-Xavier Leclerc](https://www.github.com/Jimpie1043)
+
+[Myriam Boulet](https://www.github.com/Mymytos)
 
 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+## Disclaimer
+
+#### **N'ENTREZ JAMAIS D'INFORMATIONS PERSONNELLES À L'INTÉRIEUR DU SITE.**
+
+**Ce projet est une démonstration technique réalisée dans un cadre scolaire.**
+
+**Il n’est pas destiné à une utilisation réelle ou en production.**
