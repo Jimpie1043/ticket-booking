@@ -2,10 +2,13 @@ import os
 import bcrypt
 from dotenv import load_dotenv
 
+from app import create_app
 from app.extensions import db
 from app.models.user import User
 
 load_dotenv()
+
+app = create_app()
 
 def run_seed():
     admin_email = os.getenv("ADMIN_EMAIL")
@@ -14,9 +17,13 @@ def run_seed():
     if not admin_email or not admin_password:
         raise ValueError("ADMIN_EMAIL and/or ADMIN_PASSWORD missing in environment")
 
-    existing_admin = User.query.filter_by(email=admin_email).first()
+    with app.app_context():
+        existing_admin = User.query.filter_by(email=admin_email, role="admin").first()
 
-    if not existing_admin:
+        if existing_admin:
+            print("Admin already exists")
+            return
+
         hashed = bcrypt.hashpw(
             admin_password.encode("utf-8"),
             bcrypt.gensalt()
@@ -30,6 +37,8 @@ def run_seed():
 
         db.session.add(admin)
         db.session.commit()
+
         print("Admin user created")
-    else:
-        print("Admin already exists")
+
+if __name__ == "__main__":
+    run_seed()
