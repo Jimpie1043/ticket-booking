@@ -53,7 +53,7 @@ Ce projet est une application web de réservation de billets qui permet aux util
 │   requirements.txt       # Dépendances Python
 │   run.py                 # Point d’entrée pour lancer l’application
 │   seed.py                # Initialisation du compte admin initial
-│   Procfile               # Instruction de déploiement
+│   Procfile               # Commande de démarrage
 │
 ├───app                    # Dossier principal
 │   │   config.py          # Configuration globale (clé secrète, DB, sécurité)
@@ -143,6 +143,10 @@ Pour ce projet, les variables suivantes doivent être ajoutées au fichier .env.
 **Applique les migrations à la base de données :**
 
 `flask db upgrade`
+
+**Commande de démarrage pour Render :**
+
+`flask db upgrade && python seed.py && gunicorn run:app`
 ## Auteurs
 
 [François-Xavier Leclerc](https://www.github.com/Jimpie1043)
