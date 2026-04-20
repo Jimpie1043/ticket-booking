@@ -18,6 +18,7 @@ def create_app():
         static_folder="static"
     )
 
+    # Assurer l'existance du dossier "instance"
     instance_path = os.path.join(
         os.path.dirname(__file__),
         "..",
