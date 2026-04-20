@@ -12,7 +12,7 @@ def run_seed():
     admin_password = os.getenv("ADMIN_PASSWORD")
 
     if not admin_email or not admin_password:
-        raise ValueError("ADMIN_EMAIL or ADMIN_PASSWORD missing in environment")
+        raise ValueError("ADMIN_EMAIL and/or ADMIN_PASSWORD missing in environment")
 
     existing_admin = User.query.filter_by(email=admin_email).first()
 
