@@ -10,7 +10,7 @@ booking = Blueprint("booking", __name__)
 @login_required
 def book(event_id):
     # Performe plusieurs verifications
-    event_obj = Event.query.get_or_404(event_id) # Si l'event n'existe pas, retourne 404
+    event_obj = Event.query.get_or_404(event_id)
 
     current = Booking.query.filter_by(event_id=event_id).count()
     if current >= event_obj.capacity:
@@ -45,7 +45,7 @@ def book(event_id):
 @login_required
 def cancel_booking(booking_id):
     # Performe plusieurs validations
-    booking_obj = Booking.query.get_or_404(booking_id) # Si le booking n'existe pas, retourne 404
+    booking_obj = Booking.query.get_or_404(booking_id)
 
     if booking_obj.user_id != session["user_id"]: # Si le booking ne correspond pas a la session, retourne 403
         return "Interdit", 403

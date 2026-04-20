@@ -6,11 +6,12 @@ class Event(db.Model):
     description = db.Column(db.Text)
     date = db.Column(db.String(50))
     capacity = db.Column(db.Integer, nullable=False)
-    tags = db.Column(db.String(20))
+    tags = db.Column(db.String(50))
 
+    # Définit une relation entre booking (child) et event (parent)
     bookings = db.relationship(
         "Booking",
         backref="event",
         lazy=True,
-        cascade="all, delete-orphan"
+        cascade="all, delete-orphan" # Assure la suppression des bookings quand un event est supprime
     )
