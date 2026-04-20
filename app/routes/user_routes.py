@@ -3,7 +3,10 @@ from app.extensions import db
 from app.models.user import User
 from app.models.booking import Booking
 from app.utils.auth import login_required
+from app.utils.security import sanitize_string
+from app.utils.security import validate_password
 import bcrypt
+
 
 user = Blueprint("user", __name__)
 
@@ -27,9 +30,9 @@ def user_profile():
 def change_password():
     user_obj = User.query.get_or_404(session["user_id"])
 
-    current_password = request.form.get("current_password", "")
-    new_password = request.form.get("new_password", "")
-    confirm_password = request.form.get("confirm_password", "")
+    current_password = sanitize_string(request.form.get("current_password", ""))
+    new_password = sanitize_string(request.form.get("new_password", ""))
+    confirm_password = sanitize_string(request.form.get("confirm_password", ""))
 
     # Performe plusieurs verifications
     if not bcrypt.checkpw(current_password.encode("utf-8"), user_obj.password.encode("utf-8")):
@@ -40,12 +43,8 @@ def change_password():
         flash("Le nouveau mot de passe ne peut pas être le même que le mot de passe actuel.", "error")
         return redirect(url_for("user.user_profile"))
 
-    if len(new_password) < 8:
-        flash("Le nouveau mot de passe est trop court.", "error")
-        return redirect(url_for("user.user_profile"))
-
-    if len(new_password) > 64:
-        flash("Le nouveau mot de passe est trop long.", "error")
+    if not validate_password(new_password):
+        flash("Le nouveau mot de passe doit contenir entre 8 et 64 caractères.", "error")
         return redirect(url_for("user.user_profile"))
 
     if new_password != confirm_password:
