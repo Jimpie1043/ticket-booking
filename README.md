@@ -52,7 +52,8 @@ Ce projet est une application web de réservation de billets qui permet aux util
 │   README.md              # Documentation
 │   requirements.txt       # Dépendances Python
 │   run.py                 # Point d’entrée pour lancer l’application
-│   seed.py                # Initialisation de la base de données
+│   seed.py                # Initialisation du compte admin initial
+│   Procfile               # Instruction de déploiement
 │
 ├───app                    # Dossier principal
 │   │   config.py          # Configuration globale (clé secrète, DB, sécurité)
