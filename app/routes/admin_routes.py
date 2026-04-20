@@ -3,6 +3,7 @@ from datetime import datetime
 from app.extensions import db
 from app.models.event import Event
 from app.utils.auth import admin_required
+from app.utils.security import sanitize_string
 
 admin = Blueprint("admin", __name__)
 
@@ -25,17 +26,22 @@ def admin_dashboard():
 @admin_required
 def create_event():
 
-    date = request.form["date"]
+    date = sanitize_string(request.form["date"])
 
     if not validate_date(date):
         return "Format de date invalide. Utiliser YYYY-MM-DD", 400
+    
+    capacity = int(request.form["capacity"])
+    
+    if capacity < 0:
+        return "Capacité invalide", 400
 
     new_event = Event(
-        title=request.form["title"],
-        description=request.form.get("description") or "Aucune",
+        title=sanitize_string(request.form["title"]),
+        description=sanitize_string(request.form.get("description")) or "Aucune",
         date=date,
-        capacity=int(request.form["capacity"]),
-        tags=request.form.get("tags") or "Aucun"
+        capacity=capacity,
+        tags=sanitize_string(request.form.get("tags")) or "Aucun"
     )
 
     db.session.add(new_event)
@@ -51,22 +57,27 @@ def edit_event(event_id):
 
     if request.method == "POST":
 
-        date = request.form["date"]
+        date = sanitize_string(request.form["date"])
 
         if not validate_date(date):
             return "Format de date invalide. Utiliser YYYY-MM-DD", 400
+        
+        capacity = int(request.form["capacity"])
+    
+        if capacity < 0:
+            return "Capacité invalide", 400
 
-        event_obj.title = request.form["title"]
-        event_obj.description = request.form.get("description") or "Aucune"
-        event_obj.date = date
-        event_obj.capacity = int(request.form["capacity"])
-        event_obj.tags = request.form.get("tags") or "Aucun"
+        event_obj.title = sanitize_string(request.form["title"])
+        event_obj.description = sanitize_string(request.form.get("description")) or "Aucune"
+        event_obj.date = sanitize_string(date)
+        event_obj.capacity = capacity
+        event_obj.tags = sanitize_string(request.form.get("tags")) or "Aucun"
 
         db.session.commit()
 
-        return redirect(url_for("admin.admin_dashboard"))
+        return redirect(url_for("admin.admin_dashboard")) # Si "POST"
 
-    return render_template("modifier_event.html", event=event_obj)
+    return render_template("modifier_event.html", event=event_obj) # Si "GET"
 
 @admin.route("/events/delete/<int:event_id>", methods=["POST"])
 @admin_required

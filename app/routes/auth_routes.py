@@ -4,15 +4,16 @@ from app.extensions import db
 from app.models.user import User
 from app.utils.security import validate_email, validate_password
 from app.utils.auth import login_required
+from app.utils.security import sanitize_string
 
 auth = Blueprint("auth", __name__)
 
 @auth.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        email = request.form.get("email", "").strip()
-        password = request.form.get("password", "")
-        password_repeat = request.form.get("password_repeat", "")
+        email = sanitize_string(request.form.get("email", "").strip())
+        password = sanitize_string(request.form.get("password", ""))
+        password_repeat = sanitize_string(request.form.get("password_repeat", ""))
 
         # Performe plusieurs validation d'inputs
         if not validate_email(email):
@@ -44,21 +45,21 @@ def signup():
             db.session.commit()
 
             flash("Inscription réussie ! Vous pouvez maintenant vous connecter.", "success")
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("auth.login")) # Si "POST"
 
         except Exception:
             db.session.rollback()
             flash("Erreur serveur lors de la création du compte.", "error")
-            return render_template("inscription.html")
+            return render_template("inscription.html") # Sur erreur
 
-    return render_template("inscription.html")
+    return render_template("inscription.html") # Si "GET"
 
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email = request.form.get("email", "").strip()
-        password = request.form.get("password", "")
+        email = sanitize_string(request.form.get("email", "").strip())
+        password = sanitize_string(request.form.get("password", ""))
 
         user = User.query.filter_by(email=email).first() # Cherche la db pour trouver le user auquel le email correspond
 
@@ -66,7 +67,7 @@ def login():
             flash("Identifiants invalides.", "error")
             return render_template("connexion.html")
 
-        if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")): # Si le password est mauvais
+        if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")): # Si le mdp est mauvais
             flash("Identifiants invalides.", "error")
             return render_template("connexion.html")
 
@@ -76,9 +77,9 @@ def login():
         session["user_email"] = user.email
 
         flash("Connexion réussie !", "success")
-        return redirect(url_for("event.index"))
+        return redirect(url_for("event.index")) # Si "POST"
 
-    return render_template("connexion.html")
+    return render_template("connexion.html") # Si "GET"
 
 
 @auth.route("/logout")

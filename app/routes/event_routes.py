@@ -1,9 +1,10 @@
+import re
+from datetime import datetime
 from flask import Blueprint, render_template, request, session, redirect, url_for
 from app.extensions import db
 from app.models.event import Event
 from app.models.booking import Booking
-import re
-from datetime import datetime
+from app.utils.security import sanitize_string
 
 event = Blueprint("event", __name__)
 
@@ -22,7 +23,7 @@ def all_events():
 
 @event.route("/event/<int:event_id>")
 def event_page(event_id):
-    event_obj = Event.query.get_or_404(event_id) # Si l'event n'existe pas, retourne 404
+    event_obj = Event.query.get_or_404(event_id)
 
     # Verifie si le user a un booking
     user_booking = None
@@ -53,19 +54,23 @@ def book_event(event_id):
 
     event_obj = Event.query.get_or_404(event_id)
 
+    # Determine si le booking existe deja
     existing_booking = Booking.query.filter_by(
         user_id=session["user_id"],
         event_id=event_id
     ).first()
 
+    # Compte le nombre de bookings actifs pour un event
     total_bookings = Booking.query.filter(
         Booking.event_id == event_id,
         Booking.status != "cancelled"
     ).count()
 
+    # Si l'event est plein, retourne a la page
     if total_bookings >= event_obj.capacity:
         return redirect(url_for("event.event_page", event_id=event_id))
 
+    # Si le booking existe mais est cancelled, va le remettre pending.
     if existing_booking:
         if existing_booking.status == "cancelled":
             existing_booking.status = "pending"
@@ -85,6 +90,7 @@ def book_event(event_id):
 
 
 # Fonctions pour vérification des inputs de simulation de paiement
+
 def validate_cardholder_name(name: str) -> bool:
     # Filtre pour: lettres, espaces, traits d'union et apostrophes, 2–60 caractères
     return bool(re.fullmatch(r"[A-Za-zÀ-ÿ\s'-]{2,60}", name.strip()))
@@ -143,10 +149,10 @@ def simulation_paiement(event_id):
     errors = {}
 
     if request.method == "POST":
-        cardholder_name = request.form.get("nom_carte", "")
-        card_number = request.form.get("numero_carte", "")
-        card_expiration_date = request.form.get("expiration", "")
-        card_cvv = request.form.get("cvv", "")
+        cardholder_name = sanitize_string(request.form.get("nom_carte", ""))
+        card_number = sanitize_string(request.form.get("numero_carte", ""))
+        card_expiration_date = sanitize_string(request.form.get("expiration", ""))
+        card_cvv = sanitize_string(request.form.get("cvv", ""))
 
         if not validate_cardholder_name(cardholder_name):
             errors["name"] = "Invalid name"
@@ -166,7 +172,7 @@ def simulation_paiement(event_id):
             return redirect(url_for("event.event_page", event_id=event_id))
         
         
-    return render_template(
+    return render_template( # Sur erreur(s), retourne les erreurs
         "simulation_paiement.html",
         event=event_obj,
         booking=booking,
